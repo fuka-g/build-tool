@@ -144,12 +144,9 @@ function compileFile(basename: string, path: string, destination: string, parame
     let builtFileString: string = builtFile.join("\n");
 
     if(obfuscate) {
-        var obfuscationResult = JavaScriptObfuscator.obfuscate(
-            builtFileString,
-            obfuscationParameters
-        );
+        var obfResult = JavaScriptObfuscator.obfuscate(builtFileString, obfuscationParameters);
 
-        builtFileString = obfuscationResult.getObfuscatedCode();
+        builtFileString = obfResult.getObfuscatedCode();
     }
 
     fse.writeFileSync(destination + "/" + basename, builtFileString);
