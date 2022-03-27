@@ -1,0 +1,38 @@
+{
+  "name": "build-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "buildConfig": {
+    "src": "test/",
+    "dest": "dest/",
+    "obfuscate": "build",
+    "parameters": [ "dev" ],
+    "obfuscationParameters": {
+      "compact": false,
+      "controlFlowFlattening": true,
+      "controlFlowFlatteningThreshold": 1,
+      "numbersToExpressions": true,
+      "simplify": true,
+      "stringArrayShuffle": true,
+      "splitStrings": true,
+      "stringArrayThreshold": 1
+    }
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^17.0.23",
+    "fs-extra": "^10.0.1",
+    "readdirp": "^3.6.0"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.0.0"
+  }
+}

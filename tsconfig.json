@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "ESNEXT",
+        "rootDir": "src",
+        "watch": true,
+        "allowSyntheticDefaultImports": true
+    }
+}
