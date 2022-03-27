@@ -99,8 +99,11 @@ function compileFile(basename: string, path: string, destination: string, parame
 
                 let ignoreLine = false;
 
+                // If the line starts with //, ignore it
                 if(trimmedLine.startsWith("//")) ignoreLine = true;
 
+                // If the line is in a filter where the corresponding variable isn't set,
+                // ignore it
                 for (const i in activeFiltersArray) {
                     if (filtersValueArray.indexOf(activeFiltersArray[i]) === -1) {
                         ignoreLine = true;
