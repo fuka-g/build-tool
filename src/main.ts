@@ -40,9 +40,12 @@ function compileFile(basename: string, path: string, destination: string, parame
 
             // Arguments are separated by spaces
             let lineArguments = trimmedLine.replace("//#", "").trim().split(" ");
-            if (trimmedLine.startsWith("//# define") || trimmedLine.startsWith("//#define") ||
-                trimmedLine.startsWith("//# def") || trimmedLine.startsWith("//#def")) {
 
+            let command = trimmedLine.substring(3, trimmedLine.length).trim();
+            
+            if (command.startsWith("define") || command.startsWith("define") ||
+                command.startsWith("def") || command.startsWith("def")) {
+                
                 // If the arguments are set
                 if (lineArguments[1] && lineArguments[2]) {
 
@@ -52,11 +55,13 @@ function compileFile(basename: string, path: string, destination: string, parame
                 }
             }
             if (trimmedLine.startsWith("//# if") || trimmedLine.startsWith("//#if")) {
+            if (command.startsWith("if") || command.startsWith("if")) {
                 if (activeFiltersArray.indexOf(lineArguments[1]) === -1) {
                     activeFiltersArray.push(lineArguments[1]);
                 }
             }
-            if (trimmedLine.startsWith("//# endif") || trimmedLine.startsWith("//#endif")) {
+
+            if (command.startsWith("endif") || command.startsWith("endif")) {
 
                 // If there is an argument after endif (//#endif dev)
                 if (lineArguments[1]) {
