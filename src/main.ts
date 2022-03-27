@@ -120,7 +120,7 @@ function compileFile(basename: string, path: string, destination: string, parame
         builtFileString = obfuscationResult.getObfuscatedCode();
     }
 
-    fse.writeFileSync(destination + basename, builtFileString);
+    fse.writeFileSync(destination + "/" + basename, builtFileString);
 }
 
 /**
