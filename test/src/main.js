@@ -14,7 +14,7 @@ import * as secondary from "./secondary.js";
 console.log("DEFINE_1".replaceAll("_", " "));
 console.log("DEFINE_2\n".replaceAll("_", " "));
 
-//# if dev
+//#   if dev   
 console.log("This line will be only executed in dev mode.");
 //# endif dev
 //#if  dev
