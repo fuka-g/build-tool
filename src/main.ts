@@ -46,18 +46,42 @@ function compileFile(basename: string, path: string, destination: string, parame
             if (command.startsWith("define") || command.startsWith("define") ||
                 command.startsWith("def") || command.startsWith("def")) {
                 
+                // command: "define  DEFINE_2 How_are_you_?"
+            
+                // firstCommandArgument: DEFINE_2
+                let firstCommandArgument = command.substring(command.indexOf(" "), command.length).trim();
+                
+                // secondCommandArgument: How_are_you_?
+                let secondCommandArgument = firstCommandArgument.substring(firstCommandArgument.indexOf(" "), firstCommandArgument.length).trim();
+                
+                firstCommandArgument = firstCommandArgument.substring(0, firstCommandArgument.indexOf(" ")).trim();
+
                 // If the arguments are set
-                if (lineArguments[1] && lineArguments[2]) {
+                if (firstCommandArgument && firstCommandArgument) {
+
+                    let indexOfExistingDefine = defineArray.indexOf(firstCommandArgument);
+
+                    if(indexOfExistingDefine !== -1 && !(indexOfExistingDefine % 2)) {
+                        defineArray.splice(indexOfExistingDefine, 2);
+                    }
 
                     // Push the arguments in defineArray
-                    defineArray.push(lineArguments[1]);
-                    defineArray.push(lineArguments[2]);
+                    defineArray.push(firstCommandArgument);
+                    defineArray.push(secondCommandArgument);
                 }
             }
-            if (trimmedLine.startsWith("//# if") || trimmedLine.startsWith("//#if")) {
+
             if (command.startsWith("if") || command.startsWith("if")) {
-                if (activeFiltersArray.indexOf(lineArguments[1]) === -1) {
-                    activeFiltersArray.push(lineArguments[1]);
+                // Remove the if in the first element of the array
+                lineArguments.shift();
+
+                // Get the length of the array
+                let lineArgumentsLength = lineArguments.length;
+                
+                // If the argument isn't already in the filter array
+                if (activeFiltersArray.indexOf(lineArguments[lineArgumentsLength]) === -1) {
+                    // Push it to it
+                    activeFiltersArray.push(lineArguments[lineArgumentsLength - 1]);
                 }
             }
 
