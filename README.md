@@ -1,6 +1,6 @@
 # build-tool
 
-A javascript / typescript preprocessor, comparable to gcc's.
+A javascript / typescript preprocessor, with features comparable to gcc's.
 
 **DISCLAIMER**
 
@@ -9,6 +9,10 @@ This tool is for personal use, so error and edge-cases handling are NOT priorita
 Technical support is NOT guaranteed to be provided.
 
 The documentation is currently incomplete.
+
+## Usage
+
+TODO
 
 ## Configuration
 ```json
@@ -40,7 +44,8 @@ The used prefix is //#
  - CONSTANT_NAME
  - CONSTANT_VALUE
 
+TODO
 
 ### //# if FLAG, //# endif FLAG
 
-
+TODO
