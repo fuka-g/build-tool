@@ -223,4 +223,6 @@ for (let i = 0; i < 2; i++) {
     procargs.shift();
 }
 
+// test, run, debug: node . dev && node test/dest/main
+
 main(procargs);
