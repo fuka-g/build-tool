@@ -37,6 +37,9 @@
     "readdirp": "^3.6.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.14.0",
     "javascript-obfuscator": "^4.0.0",
     "jest": "^27.5.1"
   }
