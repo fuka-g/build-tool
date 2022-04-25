@@ -201,14 +201,14 @@ export function main(parameters: string[]) {
 			if(typeof config.obfuscationParameters !== "object") obfuscate = false;
 
 			// Recursively read source folder
-			readdirp(config.src, { fileFilter: '*.js', alwaysStat: false })
+			readdirp(config.src, { fileFilter: "*.js", alwaysStat: false })
 				.on('data', (entry) => {
 					// Send the file to compileFile()
 					compileFile(entry.basename,entry.fullPath, config.dest, parameters, obfuscate, config.obfuscationParameters);
 				})
-				.on('warn', error => console.error('non-fatal error', error))
-				.on('error', error => console.error('fatal error', error))
-				.on('end', () => {
+				.on("warn", error => console.error("non-fatal error", error))
+				.on("error", error => console.error("fatal error", error))
+				.on("end", () => {
 				});
 		} else {
 			throw new Error("No destination specified. Add buildConfig.dest in package.json");
