@@ -150,6 +150,8 @@ function compileFile(basename: string, path: string, destination: string, parame
     }
 
     fse.writeFileSync(destination + "/" + basename, builtFileString);
+
+    return builtFileString;
 }
 
 /**
