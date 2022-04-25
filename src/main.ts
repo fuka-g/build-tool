@@ -159,10 +159,11 @@ function compileFile(basename: string, path: string, destination: string, parame
 export function main(parameters: string[]) {
     let config = JSON.parse(fse.readFileSync("./package.json")).buildConfig;
 
-    //console.log(config);
-    
     let obfuscate = false;
-    //let parameters: string[];
+
+    fse.ensureDirSync(config.src);
+
+    fse.ensureDirSync(config.dest);
 
     if(config.src) {
         if(config.dest) {
