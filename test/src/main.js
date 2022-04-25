@@ -31,13 +31,13 @@ console.log("Useful for hiding code in production !");
 //#  endif  build
 
 // Comment-only lines are hidden by default !
-    // Comment-only lines are hidden by default !
-        //Comment-only lines are hidden by default !
+	// Comment-only lines are hidden by default !
+		//Comment-only lines are hidden by default !
 
 console.log(); // This comment is not hidden yet, maybe in the future ? Who knows...
 
 const constantVariable = FALSE;
 
 if(constantVariable) {
-    if (secondary.hello("Hi !") === "Hi !") console.log(" - Hi secondary.js !");
+	if (secondary.hello("Hi !") === "Hi !") console.log(" - Hi secondary.js !");
 }
