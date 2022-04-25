@@ -1,27 +1,28 @@
 import fse from "fs-extra";
 import readdirp from "readdirp";
 import JavaScriptObfuscator from "javascript-obfuscator";
+import { TInputOptions } from "javascript-obfuscator/typings/src/types/options/TInputOptions";
 
 /**
  * compiles a single file
  * @param path The file path
  */
-function compileFile(basename: string, path: string, destination: string, parameters: string[], obfuscate: boolean, obfuscationParameters: any) {
+function compileFile(basename: string, path: string, destination: string, parameters: string[], obfuscate: boolean, obfuscationParameters: TInputOptions) {
 
 	// Reads the file's content
-	let mainFile: string[] = fse.readFileSync(path).toString().split("\n");
+	const mainFile: string[] = fse.readFileSync(path).toString().split("\n");
 
 	// The final script that will be written to the destination folder
-	let builtFile: string[] = new Array();
+	const builtFile: string[] = [];
 
 	// List all instances of //# define
-	let defineArray: string[] = new Array();
+	const defineArray: string[] = [];
 
 	// List all active filters (//# if's)
-	let activeFiltersArray: string[] = new Array();
+	const activeFiltersArray: string[] = [];
 
 	// Values array (true if the key is in the array)
-	let filtersValueArray: string[] = new Array();
+	const filtersValueArray: string[] = [];
 
 	if(parameters) {
 		parameters.forEach(element => {
@@ -32,16 +33,16 @@ function compileFile(basename: string, path: string, destination: string, parame
 	for (const line in mainFile) {
 
 		// Trims the line so there are no leading spaces or tabs
-		let trimmedLine = mainFile[line].trim();
+		const trimmedLine = mainFile[line].trim();
 
 		// If the line starts with the default prefix (//#)
 		// We start parsing it and try to see what we want to do
 		if (trimmedLine.startsWith("//#")) {
 
 			// Arguments are separated by spaces
-			let lineArguments = trimmedLine.replace("//#", "").trim().split(" ");
+			const lineArguments = trimmedLine.replace("//#", "").trim().split(" ");
 
-			let command = trimmedLine.substring(3, trimmedLine.length).trim();
+			const command = trimmedLine.substring(3, trimmedLine.length).trim();
 			
 			if (command.startsWith("define") || command.startsWith("define") ||
 				command.startsWith("def") || command.startsWith("def")) {
@@ -76,7 +77,7 @@ function compileFile(basename: string, path: string, destination: string, parame
 				lineArguments.shift();
 
 				// Get the length of the array
-				let lineArgumentsLength = lineArguments.length;
+				const lineArgumentsLength = lineArguments.length;
 				
 				// If the argument isn't already in the filter array
 				if (activeFiltersArray.indexOf(lineArguments[lineArgumentsLength]) === -1) {
@@ -91,7 +92,7 @@ function compileFile(basename: string, path: string, destination: string, parame
 				if (lineArguments[1]) {
 
 					//Get it's index in the active filter array
-					let indexOfFilter = activeFiltersArray.indexOf(lineArguments[1]);
+					const indexOfFilter = activeFiltersArray.indexOf(lineArguments[1]);
 
 					// If it's in the array
 					if (indexOfFilter !== -1) {
@@ -109,10 +110,10 @@ function compileFile(basename: string, path: string, destination: string, parame
 			if (trimmedLine !== "") {
 
 				// Apply //# define's
-				for (let i in defineArray) {
+				for (const i in defineArray) {
 
 					// parseInt because for some reason i is a string
-					let arrayIndex = parseInt(i);
+					const arrayIndex = parseInt(i);
 
 					// defineArray is alternating key and values
 					// Only triggers when we're on a key
@@ -144,7 +145,7 @@ function compileFile(basename: string, path: string, destination: string, parame
 	let builtFileString: string = builtFile.join("\n");
 
 	if(obfuscate) {
-		var obfResult = JavaScriptObfuscator.obfuscate(builtFileString, obfuscationParameters);
+		const obfResult = JavaScriptObfuscator.obfuscate(builtFileString, obfuscationParameters);
 
 		builtFileString = obfResult.getObfuscatedCode();
 	}
@@ -159,7 +160,7 @@ function compileFile(basename: string, path: string, destination: string, parame
  * @param root The source root folder
  */
 export function main(parameters: string[]) {
-	let config = JSON.parse(fse.readFileSync("./package.json")).buildConfig;
+	const config = JSON.parse(fse.readFileSync("./package.json")).buildConfig;
 
 	let obfuscate = false;
 
@@ -202,14 +203,12 @@ export function main(parameters: string[]) {
 
 			// Recursively read source folder
 			readdirp(config.src, { fileFilter: "*.js", alwaysStat: false })
-				.on('data', (entry) => {
+				.on("data", (entry) => {
 					// Send the file to compileFile()
-					compileFile(entry.basename,entry.fullPath, config.dest, parameters, obfuscate, config.obfuscationParameters);
+					compileFile(entry.basename, entry.fullPath, config.dest, parameters, obfuscate, config.obfuscationParameters);
 				})
 				.on("warn", error => console.error("non-fatal error", error))
-				.on("error", error => console.error("fatal error", error))
-				.on("end", () => {
-				});
+				.on("error", error => console.error("fatal error", error));
 		} else {
 			throw new Error("No destination specified. Add buildConfig.dest in package.json");
 		}
@@ -218,7 +217,7 @@ export function main(parameters: string[]) {
 	}
 }
 
-let procargs:string[] = process.argv;
+const procargs:string[] = process.argv;
 for (let i = 0; i < 2; i++) {
 	procargs.shift();
 }
