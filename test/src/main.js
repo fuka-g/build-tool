@@ -11,8 +11,8 @@ import * as secondary from "./secondary.js";
 //              ^ 3 spaces
 // Blank lines are hidden
 
-console.log("DEFINE_1".replaceAll("_", " "));
-console.log("DEFINE_2\n".replaceAll("_", " "));
+console.log(" - DEFINE_1".replaceAll("_", " "));
+console.log(" - DEFINE_2\n".replaceAll("_", " "));
 
 //#   if dev   
 console.log("This line will be only executed in dev mode.");
@@ -39,5 +39,5 @@ console.log(); // This comment is not hidden yet, maybe in the future ? Who know
 const constantVariable = FALSE;
 
 if(constantVariable) {
-    if(secondary.hello("Hi !") === "Hi !") console.log(" - Hi secondary.js !")
+    if (secondary.hello("Hi !") === "Hi !") console.log(" - Hi secondary.js !");
 }
