@@ -213,9 +213,9 @@ export function main(parameters: string[]) {
 
 			// Recursively read source folder
 			readdirp(config.src, { fileFilter: "*.js", alwaysStat: false })
+				// Send the file to compileFile()
 				.on("data", (entry) => {
-					// Send the file to compileFile()
-					compileFile(entry.basename, entry.fullPath, config.dest, parameters, obfuscate, config.obfuscationParameters);
+					compileFile(entry.basename, entry.path, entry.fullPath, config.dest, parameters, obfuscate, config.obfuscationParameters);
 				})
 				.on("warn", error => console.error("non-fatal error", error))
 				.on("error", error => console.error("fatal error", error));
