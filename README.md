@@ -15,8 +15,11 @@ The documentation is currently incomplete.
 TODO
 
 ## Configuration
+
+`build-config.json`:
+
 ```json
-"buildConfig": {
+{
     "src": "test/src/",
     "dest": "test/dest/",
     "obfuscate": "build",
