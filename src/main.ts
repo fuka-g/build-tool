@@ -174,7 +174,7 @@ export function compileFile(basename: string, projectPath: string, path: string,
  * @param root The source root folder
  */
 export function main(parameters: string[]) {
-	const config = JSON.parse(fse.readFileSync("./package.json")).buildConfig;
+	const config = JSON.parse(fse.readFileSync("./build-config.json"));
 
 	let obfuscate = false;
 
