@@ -7,7 +7,7 @@ import { TInputOptions } from "javascript-obfuscator/typings/src/types/options/T
  * compiles a single file
  * @param path The file path
  */
-function compileFile(basename: string, path: string, destination: string, parameters: string[], obfuscate: boolean, obfuscationParameters: TInputOptions) {
+export function compileFile(basename: string, projectPath: string, path: string, destination: string, parameters: string[], obfuscate: boolean, obfuscationParameters: TInputOptions): string {
 
 	// Reads the file's content
 	const mainFile: string[] = fse.readFileSync(path).toString().split("\n");
@@ -160,7 +160,11 @@ function compileFile(basename: string, path: string, destination: string, parame
 		builtFileString = obfResult.getObfuscatedCode();
 	}
 
-	fse.writeFileSync(destination + "/" + basename, builtFileString);
+	let fileFolder = destination + "/" + projectPath;
+	fileFolder = fileFolder.substring(0, fileFolder.length - basename.length);
+
+	fse.ensureDirSync(fileFolder);
+	fse.writeFileSync(destination + "/" + projectPath, builtFileString);
 
 	return builtFileString;
 }
