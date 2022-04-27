@@ -8,24 +8,6 @@
     "test": "jest",
     "build": "tsc"
   },
-  "buildConfig": {
-    "src": "test/src/",
-    "dest": "test/dest/",
-    "obfuscate": "build",
-    "parameters": [
-      "dev"
-    ],
-    "obfuscationParameters": {
-      "compact": false,
-      "controlFlowFlattening": true,
-      "controlFlowFlatteningThreshold": 1,
-      "numbersToExpressions": true,
-      "simplify": true,
-      "stringArrayShuffle": true,
-      "splitStrings": true,
-      "stringArrayThreshold": 1
-    }
-  },
   "type": "module",
   "keywords": [],
   "author": "",
